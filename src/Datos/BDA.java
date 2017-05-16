@@ -56,10 +56,10 @@ public class BDA {
     
     public List<Trabajador> listarTrabajadores() throws SQLException{
         List<Trabajador> listaTrabajadores = new ArrayList<>();
-        Trabajador t = null;
         String consulta = "SELECT * FROM trabajadores";
-        PreparedStatement ps=conn.prepareCall(consulta);
+        PreparedStatement ps=conn.prepareStatement(consulta, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
         ResultSet rs=ps.executeQuery();
+        rs.first();
         while(rs.next()){
             int id1=rs.getInt("idTrabajador");
             String nombre=rs.getString("nombre");
@@ -67,7 +67,7 @@ public class BDA {
             String dni=rs.getString("dniNie");
             Double salario=rs.getDouble("salario");
             String contraseña=rs.getString("contraseña");
-            t= new Trabajador(id1,nombre,puesto,dni,salario,contraseña);
+            Trabajador t= new Trabajador(id1,nombre,puesto,dni,salario,contraseña);
             listaTrabajadores.add(t);
         }
         return listaTrabajadores;

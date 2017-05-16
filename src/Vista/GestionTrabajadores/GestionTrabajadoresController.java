@@ -8,13 +8,21 @@ package Vista.GestionTrabajadores;
 import Datos.BDA;
 import Modelo.Trabajador;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -22,12 +30,15 @@ import javafx.scene.control.TableView;
  * @author daw
  */
 public class GestionTrabajadoresController implements Initializable {
+
     BDA bda;
 
     public void setBda(BDA bda) {
         this.bda = bda;
     }
-    
+
+    private ObservableList<Trabajador> listaTrabajadores;
+
     @FXML
     private Button añadirTrabajor;
     @FXML
@@ -46,17 +57,36 @@ public class GestionTrabajadoresController implements Initializable {
     private TableColumn<Trabajador, Double> salarioColum;
     @FXML
     private TableColumn<Trabajador, String> ContraseñaColum;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        try {
+            visualizarLista();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionTrabajadoresController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
     @FXML
     private void añadirTrabajador(ActionEvent event) {
     }
-    
+
+    public void visualizarLista() throws SQLException {
+        List<Trabajador> listaTrab = new ArrayList<>();
+        listaTrab=bda.listarTrabajadores();
+        listaTrabajadores = FXCollections.observableArrayList(listaTrab);
+        tableView.setItems(listaTrabajadores);
+
+        idColum.setCellValueFactory(new PropertyValueFactory<>("idTrabajador"));
+        nombreColum.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        puestoColum.setCellValueFactory(new PropertyValueFactory<>("puesto"));
+        dniColum.setCellValueFactory(new PropertyValueFactory<>("dniNie"));
+        salarioColum.setCellValueFactory(new PropertyValueFactory<>("salario"));
+        ContraseñaColum.setCellValueFactory(new PropertyValueFactory<>("contraseña"));
+    }
 }
