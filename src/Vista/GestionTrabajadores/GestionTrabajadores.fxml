@@ -63,7 +63,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-          <Tab text="INFORMACION DE TRABAJADOR">
+          <Tab fx:id="infoTrabajador" onSelectionChanged="#visualizarLista" text="INFORMACION DE TRABAJADOR">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

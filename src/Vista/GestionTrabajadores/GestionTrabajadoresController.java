@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,6 +33,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class GestionTrabajadoresController implements Initializable {
 
     BDA bda;
+    @FXML
+    private Tab infoTrabajador;
 
     public void setBda(BDA bda) {
         this.bda = bda;
@@ -63,29 +66,24 @@ public class GestionTrabajadoresController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            visualizarLista();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionTrabajadoresController.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
     }
 
     @FXML
-    private void añadirTrabajador(ActionEvent event) {
+    private void añadirTrabajador(ActionEvent event) throws SQLException {
     }
 
+    @FXML
     public void visualizarLista() throws SQLException {
-        List<Trabajador> listaTrab = new ArrayList<>();
-        listaTrab=bda.listarTrabajadores();
+        List<Trabajador> listaTrab;
+        listaTrab = bda.listarTrabajadores();
         listaTrabajadores = FXCollections.observableArrayList(listaTrab);
         tableView.setItems(listaTrabajadores);
 
         idColum.setCellValueFactory(new PropertyValueFactory<>("idTrabajador"));
         nombreColum.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         puestoColum.setCellValueFactory(new PropertyValueFactory<>("puesto"));
-        dniColum.setCellValueFactory(new PropertyValueFactory<>("dniNie"));
+        dniColum.setCellValueFactory(new PropertyValueFactory<>("DNI"));
         salarioColum.setCellValueFactory(new PropertyValueFactory<>("salario"));
         ContraseñaColum.setCellValueFactory(new PropertyValueFactory<>("contraseña"));
     }

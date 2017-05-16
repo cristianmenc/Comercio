@@ -38,7 +38,7 @@ public class BDA {
             String nombre = rs.getString("contraseña");
             t = new Trabajador(id1, nombre);
         }
-        
+
         return t;
     }
 
@@ -51,25 +51,25 @@ public class BDA {
         ps.setInt(4, minutos);
         ps.setDouble(5, gastos);
         ps.executeUpdate();
-        
+
     }
-    
-    public List<Trabajador> listarTrabajadores() throws SQLException{
+
+    public List<Trabajador> listarTrabajadores() throws SQLException {
         List<Trabajador> listaTrabajadores = new ArrayList<>();
         String consulta = "SELECT * FROM trabajadores";
-        PreparedStatement ps=conn.prepareStatement(consulta, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        ResultSet rs=ps.executeQuery();
-        rs.first();
-        while(rs.next()){
-            int id1=rs.getInt("idTrabajador");
-            String nombre=rs.getString("nombre");
-            String puesto=rs.getString("puesto");
-            String dni=rs.getString("dniNie");
-            Double salario=rs.getDouble("salario");
-            String contraseña=rs.getString("contraseña");
-            Trabajador t= new Trabajador(id1,nombre,puesto,dni,salario,contraseña);
+        PreparedStatement ps = conn.prepareStatement(consulta, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            int id1 = rs.getInt("idTrabajador");
+            String nombre = rs.getNString("nombre");
+            String puesto = rs.getNString("puesto");
+            String dni = rs.getNString("dniNie");
+            Double salario = rs.getDouble("salario");
+            String contraseña = rs.getNString("contraseña");
+            Trabajador t = new Trabajador(id1, nombre, puesto, dni, salario, contraseña);
             listaTrabajadores.add(t);
         }
         return listaTrabajadores;
     }
+
 }

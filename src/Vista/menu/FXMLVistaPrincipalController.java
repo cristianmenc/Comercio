@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 public class FXMLVistaPrincipalController implements Initializable {
 
     BDA bda;
-    
+
     @FXML
     private Button rutas;
     Stage escenario;
@@ -39,43 +39,42 @@ public class FXMLVistaPrincipalController implements Initializable {
     public void setBda(BDA bda) {
         this.bda = bda;
     }
+
     /**
      * Initializes the controller class.
      */
-    
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void clicarRutas(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(); 
-            loader.setLocation(getClass().getResource("/Vista/rutas/Rutas.fxml"));
-            Parent root = loader.load();
-            ((RutasController) loader.getController()).setBda(bda);
-            escenario = new Stage();
-            escenario.setTitle("Menu principal");
-            escenario.initModality(Modality.APPLICATION_MODAL);
-            escenario.setScene(new Scene(root));
-            escenario.showAndWait();
-            Stage stage=(Stage) rutas.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/Vista/rutas/Rutas.fxml"));
+        Parent root = loader.load();
+        ((RutasController) loader.getController()).setBda(bda);
+        escenario = new Stage();
+        escenario.setTitle("Menu principal");
+        escenario.initModality(Modality.APPLICATION_MODAL);
+        escenario.setScene(new Scene(root));
+        escenario.showAndWait();
+        Stage stage = (Stage) rutas.getScene().getWindow();
     }
 
     @FXML
     private void clicarTrabajadores(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(); 
-            loader.setLocation(getClass().getResource("/Vista/GestionTrabajadores/GestionTrabajadores.fxml"));
-            Parent root = loader.load();
-           ((GestionTrabajadoresController) loader.getController()).setBda(bda);
-            escenario = new Stage();
-            escenario.setTitle("Menu principal");
-            escenario.initModality(Modality.APPLICATION_MODAL);
-            escenario.setScene(new Scene(root));
-            escenario.showAndWait();
-            Stage stage=(Stage) trabajadores.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/Vista/GestionTrabajadores/GestionTrabajadores.fxml"));
+        Parent root = loader.load();
+        ((GestionTrabajadoresController) loader.getController()).setBda(bda);
+        escenario = new Stage();
+        escenario.setTitle("Menu principal");
+        escenario.initModality(Modality.APPLICATION_MODAL);
+        escenario.setScene(new Scene(root));
+        escenario.showAndWait();
+        Stage stage = (Stage) trabajadores.getScene().getWindow();
     }
-    
+
 }
