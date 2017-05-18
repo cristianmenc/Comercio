@@ -61,7 +61,6 @@ public class FXMLVistaPrincipalController implements Initializable {
         escenario.setScene(new Scene(root));
         escenario.setResizable(false);
         escenario.showAndWait();
-        Stage stage = (Stage) rutas.getScene().getWindow();
     }
 
     @FXML
@@ -76,7 +75,6 @@ public class FXMLVistaPrincipalController implements Initializable {
         escenario.setScene(new Scene(root));
         escenario.setResizable(false);
         escenario.showAndWait();
-        Stage stage = (Stage) trabajadores.getScene().getWindow();
     }
 
 }
