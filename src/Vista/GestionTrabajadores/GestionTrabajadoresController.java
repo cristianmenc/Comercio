@@ -57,6 +57,28 @@ public class GestionTrabajadoresController implements Initializable {
     private TextField idModif;
     @FXML
     private TextField idEliminar;
+    @FXML
+    private TextField contraseñaModif;
+    @FXML
+    private TextField salarioModif;
+    @FXML
+    private TextField puestoModif;
+    @FXML
+    private TextField nombreModif;
+    @FXML
+    private TextField idHorario;
+    @FXML
+    private TextField idTienda;
+    @FXML
+    private TextField dniModif;
+    @FXML
+    private TextField idTiendaModif;
+    @FXML
+    private TextField idHorarioModif;
+    @FXML
+    private TableColumn<?, ?> idTiendaColum;
+    @FXML
+    private TableColumn<?, ?> idHorarioColum;
 
     public void setBda(BDA bda) {
         this.bda = bda;
@@ -98,8 +120,10 @@ public class GestionTrabajadoresController implements Initializable {
             String dniNieTrabajador = dni.getText();
             Double salarioTrabajador = Double.parseDouble(salario.getText());
             String contraseñaTrabajador = contraseña.getText();
+            Integer idTiendas = Integer.parseInt(idTienda.getText());
+            Integer idHorarios = Integer.parseInt(idHorario.getText());
 
-            bda.insertarTrabajador(idTrabajador, nombreTrabajador, puestoTrabajador, dniNieTrabajador, salarioTrabajador, contraseñaTrabajador);
+            bda.insertarTrabajador(idTrabajador, nombreTrabajador, puestoTrabajador, dniNieTrabajador, salarioTrabajador, contraseñaTrabajador, idTiendas, idHorarios);
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setTitle("Trabajador");
             a.setHeaderText("El trabajador a sido introducida con exito");
@@ -127,11 +151,31 @@ public class GestionTrabajadoresController implements Initializable {
         dniColum.setCellValueFactory(new PropertyValueFactory<>("DNI"));
         salarioColum.setCellValueFactory(new PropertyValueFactory<>("salario"));
         ContraseñaColum.setCellValueFactory(new PropertyValueFactory<>("contraseña"));
+        idTiendaColum.setCellValueFactory(new PropertyValueFactory<>("idTienda"));
+        idHorarioColum.setCellValueFactory(new PropertyValueFactory<>("idHorario"));
     }
 
     @FXML
-    private void modificarTrabajador(ActionEvent event) {
-        
+    private void modificarTrabajador(ActionEvent event) throws SQLException {
+        Trabajador t;
+        int idTrabajador = Integer.parseInt(idModif.getText());
+        String nombre = nombreModif.getText();
+        String puesto = puestoModif.getText();
+        double salario = Double.parseDouble(salarioModif.getText());
+        String contraseña = contraseñaModif.getText();
+        t = new Trabajador(idTrabajador, nombre, puesto, salario, contraseña);
+        int filas = bda.modificarTrabajador(t);
+        if (filas == 0) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error");
+            a.setHeaderText("La id del trabajador no existe");
+            a.show();
+        } else {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setTitle("Trabajador");
+            a.setHeaderText("Trabajador modificado con exito");
+            a.show();
+        }
     }
 
     @FXML

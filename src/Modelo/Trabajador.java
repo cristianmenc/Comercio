@@ -18,18 +18,31 @@ import javafx.beans.property.StringProperty;
  */
 public class Trabajador {
 
-    private final IntegerProperty idTrabajador= new SimpleIntegerProperty();;
-    private final StringProperty nombre = new SimpleStringProperty();;
-    private final StringProperty puesto = new SimpleStringProperty();;
-    private final StringProperty dniNie = new SimpleStringProperty();;
-    private final DoubleProperty salario = new SimpleDoubleProperty();;
-    private final StringProperty contraseña = new SimpleStringProperty();;
-
+    private final IntegerProperty idTrabajador= new SimpleIntegerProperty();
+    private final StringProperty nombre = new SimpleStringProperty();
+    private final StringProperty puesto = new SimpleStringProperty();
+    private final StringProperty dniNie = new SimpleStringProperty();
+    private final DoubleProperty salario = new SimpleDoubleProperty();
+    private final StringProperty contraseña = new SimpleStringProperty();
+    private final IntegerProperty idHorario = new SimpleIntegerProperty();
+    private final IntegerProperty idTienda = new SimpleIntegerProperty();
+    
     public Trabajador(String dniNie, String contraseña) {
         this.dniNie.setValue(dniNie);
         this.contraseña.setValue(contraseña);
     }
 
+    public Trabajador(int idTrabajador, String nombre, String puesto, String dniNie, Double salario, String contraseña, int idTienda, int idHorario) {
+        this.idTrabajador.setValue(idTrabajador);
+        this.nombre.setValue(nombre);
+        this.puesto.setValue(puesto);
+        this.dniNie.setValue(dniNie);
+        this.salario.setValue(salario);
+        this.contraseña.setValue(contraseña);
+        this.idTienda.setValue(idTienda);
+        this.idHorario.setValue(idHorario);
+    }
+    
     public Trabajador(int idTrabajador, String nombre, String puesto, String dniNie, Double salario, String contraseña) {
         this.idTrabajador.setValue(idTrabajador);
         this.nombre.setValue(nombre);
@@ -37,6 +50,39 @@ public class Trabajador {
         this.dniNie.setValue(dniNie);
         this.salario.setValue(salario);
         this.contraseña.setValue(contraseña);
+    }
+    
+    public Trabajador(int idTrabajador, String nombre, String puesto, Double salario, String contraseña) {
+        this.idTrabajador.setValue(idTrabajador);
+        this.nombre.setValue(nombre);
+        this.puesto.setValue(puesto);
+        this.salario.setValue(salario);
+        this.contraseña.setValue(contraseña);
+    }
+
+    public int getIdTienda() {
+        return idTienda.get();
+    }
+
+    public void setIdTienda(int value) {
+        idTienda.set(value);
+    }
+
+    public IntegerProperty idTiendaProperty() {
+        return idTienda;
+    }
+    
+
+    public int getIdHorario() {
+        return idHorario.get();
+    }
+
+    public void setIdHorario(int value) {
+        idHorario.set(value);
+    }
+
+    public IntegerProperty idHorarioProperty() {
+        return idHorario;
     }
 
     public String getContraseña() {

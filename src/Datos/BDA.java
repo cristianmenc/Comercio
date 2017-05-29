@@ -56,7 +56,7 @@ public class BDA {
 
     }
     
-    public void insertarTrabajador(Integer idTrabajador, String nombre, String puesto, String dniNie, Double salario, String contraseña) throws SQLException {
+    public void insertarTrabajador(Integer idTrabajador, String nombre, String puesto, String dniNie, Double salario, String contraseña, int idTienda, int idHorario) throws SQLException {
         String consulta = "INSERT INTO trabajadores (idTrabajador, nombre, puesto, dniNie, salario, contraseña, idTienda1, idHorario, IRPF) VALUES (?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = conn.prepareStatement(consulta);
         ps.setInt(1, idTrabajador);
@@ -65,8 +65,8 @@ public class BDA {
         ps.setString(4, dniNie);
         ps.setDouble(5, salario);
         ps.setString(6, contraseña);
-        ps.setInt(7, 1);
-        ps.setInt(8, 1);
+        ps.setInt(7, idTienda);
+        ps.setInt(8, idHorario);
         ps.setDouble(9, 30);
         ps.executeUpdate();
 
@@ -105,6 +105,19 @@ public class BDA {
         }
         return listaRutas;
     }
+    
+    public int modificarTrabajador(Trabajador t) throws SQLException{
+        String consulta="UPDATE trabajadores set nombre=?,puesto=?,salario=?, contraseña=? where idTrabajador=?";
+        PreparedStatement ps=conn.prepareStatement(consulta);
+        ps.setString(1, t.getNombre());
+        ps.setString(2, t.getPuesto());
+        ps.setDouble(3, t.getSalario());
+        ps.setString(4, t.getContraseña());
+        ps.setInt(5, t.getIdTrabajador());
+        int filas=ps.executeUpdate();
+        return filas;
+    }
+    
     public int borrarRuta(int id) throws SQLException{
         Ruta r = null;
         String consulta="DELETE FROM rutas WHERE idRuta=?";
