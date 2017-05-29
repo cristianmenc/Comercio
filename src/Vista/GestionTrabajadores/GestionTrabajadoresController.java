@@ -19,10 +19,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
@@ -35,6 +37,26 @@ public class GestionTrabajadoresController implements Initializable {
     BDA bda;
     @FXML
     private Tab infoTrabajador;
+    @FXML
+    private TextField id;
+    @FXML
+    private TextField nombre;
+    @FXML
+    private TextField puesto;
+    @FXML
+    private TextField dni;
+    @FXML
+    private TextField salario;
+    @FXML
+    private TextField contraseña;
+    @FXML
+    private Button modificarTrabajador;
+    @FXML
+    private Button eliminarTrabajador;
+    @FXML
+    private TextField idModif;
+    @FXML
+    private TextField idEliminar;
 
     public void setBda(BDA bda) {
         this.bda = bda;
@@ -44,8 +66,6 @@ public class GestionTrabajadoresController implements Initializable {
 
     @FXML
     private Button añadirTrabajor;
-    @FXML
-    private Button añadirTrabajor1;
     @FXML
     private TableView<Trabajador> tableView;
     @FXML
@@ -71,7 +91,28 @@ public class GestionTrabajadoresController implements Initializable {
 
     @FXML
     private void añadirTrabajador(ActionEvent event) throws SQLException {
+        try {
+            Integer idTrabajador = Integer.parseInt(id.getText());
+            String nombreTrabajador = nombre.getText();
+            String puestoTrabajador = puesto.getText();
+            String dniNieTrabajador = dni.getText();
+            Double salarioTrabajador = Double.parseDouble(salario.getText());
+            String contraseñaTrabajador = contraseña.getText();
+
+            bda.insertarTrabajador(idTrabajador, nombreTrabajador, puestoTrabajador, dniNieTrabajador, salarioTrabajador, contraseñaTrabajador);
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setTitle("Trabajador");
+            a.setHeaderText("El trabajador a sido introducida con exito");
+            a.show();
+        } catch (SQLException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Trabajador");
+            a.setHeaderText("Error al insertar el trabajador : "+ex.getMessage());
+            a.show();
+        }
     }
+    
+    
 
     @FXML
     public void visualizarLista() throws SQLException {
@@ -86,5 +127,27 @@ public class GestionTrabajadoresController implements Initializable {
         dniColum.setCellValueFactory(new PropertyValueFactory<>("DNI"));
         salarioColum.setCellValueFactory(new PropertyValueFactory<>("salario"));
         ContraseñaColum.setCellValueFactory(new PropertyValueFactory<>("contraseña"));
+    }
+
+    @FXML
+    private void modificarTrabajador(ActionEvent event) {
+        
+    }
+
+    @FXML
+    private void eliminarTrabajador(ActionEvent event) {
+        try {
+            int idTrabajador = Integer.parseInt(idEliminar.getText());
+            bda.borrarTrabajador(idTrabajador);
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setTitle("Trabajador");
+            a.setHeaderText("El trabajador ha sido eliminado con exito");
+            a.show();
+        } catch (SQLException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error");
+            a.setHeaderText("Error al borrar el trabajador: "+ex.getMessage());
+            a.show();
+        }
     }
 }

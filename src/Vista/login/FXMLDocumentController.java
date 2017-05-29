@@ -64,10 +64,12 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void clicarLogin(MouseEvent event) throws SQLException, IOException{
-        int user = Integer.parseInt(usuario.getText());
-        t = b.consultar(Integer.parseInt(usuario.getText()));
+        String dni = usuario.getText();
+        t = b.consultar(usuario.getText());
+        System.out.println("El dni: "+t.getDNI());
 
-        if (t.getIdTrabajador() == user && t.getContraseña().equals(contra.getText())) {
+        
+        if (t.getDNI().equals(dni) && t.getContraseña().equals(contra.getText())) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
 //            a.setTitle("Correcto");
 //            a.setHeaderText("El usuario ha sido registrado");
@@ -81,8 +83,10 @@ public class FXMLDocumentController implements Initializable {
             escenario.setTitle("Menu principal");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.setScene(new Scene(root));
-            escenario.showAndWait();
             Stage stage=(Stage) login.getScene().getWindow();
+            stage.close();
+            escenario.showAndWait();
+            
             
             
         } else {

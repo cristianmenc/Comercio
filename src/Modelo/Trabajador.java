@@ -25,8 +25,8 @@ public class Trabajador {
     private final DoubleProperty salario = new SimpleDoubleProperty();;
     private final StringProperty contraseña = new SimpleStringProperty();;
 
-    public Trabajador(int idTrabajador, String contraseña) {
-        this.idTrabajador.setValue(idTrabajador);
+    public Trabajador(String dniNie, String contraseña) {
+        this.dniNie.setValue(dniNie);
         this.contraseña.setValue(contraseña);
     }
 
